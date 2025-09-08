@@ -1,17 +1,17 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import HomemakerDashboard from './pages/HomemakerDashboard';
-import ProfessionalDashboard from './pages/ProfessionalDashboard';
+import Entrance from './pages/Entrance';
 
 function App() {
   return (
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Entrance />} /> {/* Entrance page */}
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/homemaker" element={<HomemakerDashboard />} />
+        <Route path="/professional" element={<ProfessionalDashboard />} />
+      </Routes>
+    </Router>
+  );
+}
