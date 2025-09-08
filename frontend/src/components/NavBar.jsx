@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../public/logo.jpg';
 
 const NavBar = () => {
   return (
-    <nav className="navbar">
-      <div className="container nav-container">
-        <Link to="/" className="logo">HER HUB</Link>
-        <div className="nav-links">
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Signup</Link>
-        </div>
+    <nav>
+      <Link to="/"><img src={logo} alt="HER HUB Logo" /></Link>
+      <div>
+        <Link to="/">Home</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/signup">Signup</Link>
       </div>
     </nav>
   );
