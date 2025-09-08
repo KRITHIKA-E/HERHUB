@@ -1,31 +1,34 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Button from '../components/Button';
 
 const Signup = () => {
-  const [name,setName] = useState('');
-  const [email,setEmail] = useState('');
-  const [password,setPassword] = useState('');
-  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    name: '', age: '', location: '', education: '', passion: '', number: ''
+  });
 
-  const handleSignup = e => {
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.id]: e.target.value });
+  };
+
+  const handleSignup = (e) => {
     e.preventDefault();
-    if(name && email && password) {
-      alert('Signup successful!');
-      navigate('/login');
-    }
+    localStorage.setItem("userDetails", JSON.stringify(user));
+    window.location.href = "/home";
   };
 
   return (
-    <div className="center-box">
-      <img src="/logo.jpg" alt="HER HUB Logo" style={{ width: '120px', marginBottom: '1rem' }} />
-      <form onSubmit={handleSignup}>
-        <h2>Signup</h2>
-        <input type="text" placeholder="Name" value={name} onChange={e=>setName(e.target.value)} required />
-        <input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} required />
-        <Button type="submit">Signup</Button>
-      </form>
+    <div className="page-container">
+      <div className="container">
+        <h1>Create Your Account</h1>
+        <form onSubmit={handleSignup}>
+          <input type="text" id="name" placeholder="Name" onChange={handleChange} required />
+          <input type="number" id="age" placeholder="Age" onChange={handleChange} required />
+          <input type="text" id="location" placeholder="Location" onChange={handleChange} required />
+          <input type="text" id="education" placeholder="Educational Qualification" onChange={handleChange} required />
+          <input type="text" id="passion" placeholder="Passion" onChange={handleChange} required />
+          <input type="tel" id="number" placeholder="Phone Number" onChange={handleChange} required />
+          <button type="submit" className="button">Register</button>
+        </form>
+      </div>
     </div>
   );
 };
