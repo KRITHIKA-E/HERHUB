@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button';
 
 const Signup = () => {
+  const [name,setName] = useState('');
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [passion, setPassion] = useState('');
 
-  const handleSignup = (e) => {
+  const handleSignup = e => {
     e.preventDefault();
-    const user = { name, age, passion };
-    localStorage.setItem('user', JSON.stringify(user));
-    navigate('/home');
+    if(name && email && password) {
+      alert('Signup successful!');
+      navigate('/login');
+    }
   };
 
   return (
-    <div className="container">
-      <h2>Create Account</h2>
+    <div className="center-box">
+      <img src="/logo.jpg" alt="HER HUB Logo" style={{ width: '120px', marginBottom: '1rem' }} />
       <form onSubmit={handleSignup}>
+        <h2>Signup</h2>
         <input type="text" placeholder="Name" value={name} onChange={e=>setName(e.target.value)} required />
-        <input type="number" placeholder="Age" value={age} onChange={e=>setAge(e.target.value)} required />
-        <input type="text" placeholder="Passion" value={passion} onChange={e=>setPassion(e.target.value)} required />
-        <button type="submit">Register</button>
+        <input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} required />
+        <input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} required />
+        <Button type="submit">Signup</Button>
       </form>
     </div>
   );

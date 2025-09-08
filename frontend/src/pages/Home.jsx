@@ -1,20 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 const Home = () => {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-
-  useEffect(() => {
-    const user = localStorage.getItem('username') || JSON.parse(localStorage.getItem('user'))?.name;
-    if(!user) navigate('/login');
-    else setUsername(user);
-  }, [navigate]);
-
   return (
-    <div className="container">
-      <h2>Welcome, {username}!</h2>
-      <p>"Empower yourself and shine in your passion!"</p>
+    <div className="hero">
+      <img src="/logo.jpg" alt="HER HUB Logo" />
+      <h1>Welcome to HER HUB</h1>
+      <p>Your platform to connect homemakers and professionals seamlessly.</p>
     </div>
   );
 };

@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = e => {
     e.preventDefault();
-    if(username) {
-      localStorage.setItem('username', username);
-      navigate('/home');
+    if(email && password) {
+      alert(`Welcome ${email}`);
+      navigate('/homemaker');
     }
   };
 
   return (
-    <div className="container">
-      <h2>Login</h2>
+    <div className="center-box">
+      <img src="/logo.jpg" alt="HER HUB Logo" style={{ width: '120px', marginBottom: '1rem' }} />
       <form onSubmit={handleLogin}>
-        <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} required />
-        <input type="password" placeholder="Password" required />
-        <button type="submit">Login</button>
+        <h2>Login</h2>
+        <input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} required />
+        <input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} required />
+        <Button type="submit">Login</Button>
       </form>
     </div>
   );

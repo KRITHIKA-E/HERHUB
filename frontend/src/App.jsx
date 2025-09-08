@@ -1,23 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
-import Entrance from './pages/Entrance';
+import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Home from './pages/Home';
+import HomemakerDashboard from './pages/HomemakerDashboard';
+import ProfessionalDashboard from './pages/ProfessionalDashboard';
 
 function App() {
   return (
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Entrance />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/home" element={<Home />} />
-      </Routes>
-    </Router>
-  );
-}
-
-export default App;
+        <Route path="/

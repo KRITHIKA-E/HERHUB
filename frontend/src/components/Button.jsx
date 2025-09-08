@@ -1,13 +1,9 @@
 import React from 'react';
 
-const Home = () => {
+const Button = ({ children, onClick, type = "button" }) => {
   return (
-    <div className="hero">
-      <img src="/logo.jpg" alt="HER HUB" />
-      <h1>Welcome to HER HUB</h1>
-      <p>Your platform to connect homemakers and professionals seamlessly.</p>
-    </div>
+    <button type={type} onClick={onClick}>{children}</button>
   );
 };
 
-export default Home;
+export default Button;
