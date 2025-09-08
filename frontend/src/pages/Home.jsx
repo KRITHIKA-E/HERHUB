@@ -1,34 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Button from '../components/Button';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const user = localStorage.getItem('username') || JSON.parse(localStorage.getItem('user'))?.name;
+    if(!user) navigate('/login');
+    else setUsername(user);
+  }, [navigate]);
+
   return (
-    <div className="home">
-      <section className="hero">
-        <div className="container hero-content">
-          <h1>Welcome to HER HUB</h1>
-          <p>Empowering homemakers to explore their passions and earn from home.</p>
-          <div className="hero-buttons">
-            <Link to="/signup"><Button>Get Started</Button></Link>
-            <Link to="/login"><Button>Login</Button></Link>
-          </div>
-        </div>
-      </section>
-      <section className="features container">
-        <div className="card">
-          <h3>Discover Jobs</h3>
-          <p>Find opportunities tailored to your skills and passion.</p>
-        </div>
-        <div className="card">
-          <h3>Learn & Grow</h3>
-          <p>Access tutorials and resources to upgrade your skills.</p>
-        </div>
-        <div className="card">
-          <h3>Connect</h3>
-          <p>Collaborate with professionals and get hired remotely.</p>
-        </div>
-      </section>
+    <div className="container">
+      <h2>Welcome, {username}!</h2>
+      <p>"Empower yourself and shine in your passion!"</p>
     </div>
   );
 };
