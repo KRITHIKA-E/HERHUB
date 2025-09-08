@@ -2,13 +2,11 @@ import React from 'react';
 import NavBar from '../components/NavBar';
 import Card from '../components/Card';
 import Button from '../components/Button';
-import job1 from '../assets/job1.jpg';
-import job2 from '../assets/job2.jpg';
 
 const ProfessionalDashboard = () => {
   const homemakers = [
-    { name: 'Anita Sharma', skill: 'Baking & Cooking', image: job1 },
-    { name: 'Priya Verma', skill: 'Handmade Crafts', image: job2 },
+    { name: 'Anita Sharma', skill: 'Baking & Cooking', image: '/images/job1.jpg' },
+    { name: 'Priya Verma', skill: 'Handmade Crafts', image: '/images/job2.jpg' },
   ];
 
   return (
@@ -16,7 +14,7 @@ const ProfessionalDashboard = () => {
       <NavBar />
       <div className="container">
         <h2>Welcome Professional!</h2>
-        <p>Browse verified homemakers and post jobs:</p>
+        <p>Browse verified homemakers:</p>
 
         <div className="dashboard-cards">
           {homemakers.map((hm, index) => (
