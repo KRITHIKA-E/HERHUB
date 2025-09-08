@@ -5,11 +5,11 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #fdf6f9;
-  color: #4b2c4b;
+body, html {
+  height: 100%;
+  margin: 0;
 }
+
 
 /* Containers */
 .container {
