@@ -1,24 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Entrance = () => {
-  const handleEnter = () => {
-    window.location.href = "/login";
-  };
-
+  const navigate = useNavigate();
   return (
-    <div className="page-container">
-      <div className="container entrance-container">
-        <img
-           className="entrance-logo"
-           src="/logo.jpg"
-           alt="HER HUB Logo"
-        />
-        <h1 className="app-name">HER HUB</h1>
-        <p className="slogan">"She is not the fate, she is born to be great!!"</p>
-        <div className="button-container">
-          <button className="button" onClick={handleEnter}>Enter</button>
-        </div>
-      </div>
+    <div className="container">
+      <img src="/logo.png" alt="HER HUB" className="logo-img" />
+      <h1>HER HUB</h1>
+      <p className="slogan">"She is not the fate, she is born to be great!!"</p>
+      <button onClick={() => navigate('/login')}>Enter</button>
     </div>
   );
 };

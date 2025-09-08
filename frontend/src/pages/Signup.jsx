@@ -1,34 +1,28 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-  const [user, setUser] = useState({
-    name: '', age: '', location: '', education: '', passion: '', number: ''
-  });
-
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.id]: e.target.value });
-  };
+  const navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [passion, setPassion] = useState('');
 
   const handleSignup = (e) => {
     e.preventDefault();
-    localStorage.setItem("userDetails", JSON.stringify(user));
-    window.location.href = "/home";
+    const user = { name, age, passion };
+    localStorage.setItem('user', JSON.stringify(user));
+    navigate('/home');
   };
 
   return (
-    <div className="page-container">
-      <div className="container">
-        <h1>Create Your Account</h1>
-        <form onSubmit={handleSignup}>
-          <input type="text" id="name" placeholder="Name" onChange={handleChange} required />
-          <input type="number" id="age" placeholder="Age" onChange={handleChange} required />
-          <input type="text" id="location" placeholder="Location" onChange={handleChange} required />
-          <input type="text" id="education" placeholder="Educational Qualification" onChange={handleChange} required />
-          <input type="text" id="passion" placeholder="Passion" onChange={handleChange} required />
-          <input type="tel" id="number" placeholder="Phone Number" onChange={handleChange} required />
-          <button type="submit" className="button">Register</button>
-        </form>
-      </div>
+    <div className="container">
+      <h2>Create Account</h2>
+      <form onSubmit={handleSignup}>
+        <input type="text" placeholder="Name" value={name} onChange={e=>setName(e.target.value)} required />
+        <input type="number" placeholder="Age" value={age} onChange={e=>setAge(e.target.value)} required />
+        <input type="text" placeholder="Passion" value={passion} onChange={e=>setPassion(e.target.value)} required />
+        <button type="submit">Register</button>
+      </form>
     </div>
   );
 };

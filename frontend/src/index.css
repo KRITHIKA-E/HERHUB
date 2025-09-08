@@ -5,74 +5,110 @@
   box-sizing: border-box;
 }
 
-body, html, #root {
-  height: 100%;
+body {
   font-family: 'Arial', sans-serif;
   background-color: #fdf6f9;
   color: #4b2c4b;
 }
 
-/* Center page containers */
-.page-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-/* Card containers */
+/* Containers */
 .container {
-  background-color: #fff;
+  width: 90%;
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+  padding: 2rem;
+  background: #fff;
   border: 2px solid #f4c2c2;
   border-radius: 15px;
-  padding: 2rem;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* Entrance logo */
-.entrance-logo {
+/* Logo */
+.logo-img {
   width: 120px;
   height: auto;
   margin-bottom: 1rem;
 }
 
-/* App Name & Slogan */
-.app-name {
-  font-size: 2rem;
-  font-weight: bold;
+/* Titles */
+h1 {
   color: #8b1e8b;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.slogan {
-  font-style: italic;
+h2 {
+  color: #8b1e8b;
   margin-bottom: 1rem;
 }
 
-/* Inputs and buttons */
-input {
-  padding: 0.8rem;
-  margin: 0.5rem 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 100%;
-  font-size: 1rem;
+/* Slogan */
+.slogan {
+  font-size: 1.2rem;
+  font-style: italic;
+  margin-bottom: 2rem;
 }
 
-.button {
-  padding: 0.8rem;
-  margin-top: 1rem;
+/* Buttons */
+button {
+  padding: 0.8rem 1.5rem;
   background-color: #8b1e8b;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color 0.3s ease;
+  transition: 0.3s;
 }
 
-.button:hover {
+button:hover {
   background-color: #6a156a;
+}
+
+/* Inputs */
+input, select {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0 1rem 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #8b1e8b;
+  color: white;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 1rem;
+  }
+  nav {
+    flex-direction: column;
+  }
 }
