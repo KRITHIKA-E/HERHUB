@@ -4,6 +4,7 @@
   min-height: 100vh;
   background: linear-gradient(120deg, #f7f0fa 60%, #e3e0f7 100%);
   font-family: 'Poppins', Arial, sans-serif;
+  padding-top: 20px; /* added space to separate navbar and hero */
 }
 
 .entrance-navbar {
@@ -213,4 +214,103 @@
     align-items: center;
     gap: 1.2rem;
   }
+  /* Home.css */
+.home-bg {
+  font-family: 'Poppins', sans-serif;
+  padding-top: 80px; /* space for navbar */
+}
+
+.home-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4vh 5vw;
+  gap: 2rem;
+  background: linear-gradient(120deg, #f7f0fa 70%, #e3e0f7 100%);
+  border-radius: 12px;
+  margin: 2vh auto;
+  max-width: 1200px;
+}
+
+.home-hero-text h1 {
+  font-size: 2rem;
+  color: #8b1e8b;
+  margin-bottom: 1rem;
+}
+
+.home-hero-text p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cta-btn {
+  padding: 0.8rem 2rem;
+  background: linear-gradient(90deg, #a45fc1, #7c3fa0);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.cta-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #7c3fa0, #a45fc1);
+}
+
+.home-hero-image img {
+  width: 400px;
+  max-width: 100%;
+  border-radius: 12px;
+}
+
+.home-quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 3vh auto;
+  max-width: 1200px;
+}
+
+.quick-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(120, 60, 160, 0.1);
+  text-align: center;
+  width: 220px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.quick-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 28px rgba(120, 60, 160, 0.15);
+}
+
+.quick-link-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 6px 16px;
+  background: linear-gradient(90deg, #a45fc1, #7c3fa0);
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.quick-link-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #7c3fa0, #a45fc1);
+}
+
+.home-footer {
+  text-align: center;
+  color: #888;
+  font-size: 0.95rem;
+  margin: 4vh auto 2vh auto;
+}
+
 }

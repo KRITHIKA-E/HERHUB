@@ -1,86 +1,89 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './NavBar.css';
 
 const NavBar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [communityOpen, setCommunityOpen] = useState(false);
+  const [jobsOpen, setJobsOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+
   return (
-    <nav
-      style={{
-        backgroundColor: '#8b1e8b',
-        padding: '10px 32px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        color: 'white',
-        boxShadow: '0 2px 8px rgba(120, 60, 160, 0.10)',
-        borderBottom: '2px solid #a45fc1',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Link
-          to="/"
-          style={{
-            fontSize: '22px',
-            fontWeight: 'bold',
-            textDecoration: 'none',
-            color: 'white',
-            letterSpacing: '1px',
-            marginRight: '32px',
-          }}
-        >
-          HER HUB
+    <nav className="navbar">
+      <div className="nav-container">
+        {/* Small Logo + Text */}
+        <Link to="/" className="nav-logo">
+          <span className="logo-text">HER HUB</span>
         </Link>
-        <Link to="/resources" style={{ color: 'white', marginRight: '18px', textDecoration: 'none', fontWeight: 500 }}>
-          Resources
-        </Link>
-        <Link to="/community" style={{ color: 'white', marginRight: '18px', textDecoration: 'none', fontWeight: 500 }}>
-          Community
-        </Link>
-        <Link to="/jobs" style={{ color: 'white', marginRight: '18px', textDecoration: 'none', fontWeight: 500 }}>
-          Jobs
-        </Link>
-        <Link
-          to="/post-job"
-          style={{
-            color: '#8b1e8b',
-            background: '#fff',
-            borderRadius: '6px',
-            padding: '6px 16px',
-            fontWeight: 600,
-            textDecoration: 'none',
-            marginLeft: '10px',
-            boxShadow: '0 2px 8px rgba(120, 60, 160, 0.08)',
-            transition: 'background 0.2s, color 0.2s',
-          }}
-        >
-          Post a Job
-        </Link>
-      </div>
-      <div>
-        {/* Profile icon placeholder */}
-        <Link to="/profile" style={{ textDecoration: 'none' }}>
-          <span
-            style={{
-              display: 'inline-block',
-              width: '34px',
-              height: '34px',
-              background: '#fff',
-              borderRadius: '50%',
-              textAlign: 'center',
-              lineHeight: '34px',
-              color: '#8b1e8b',
-              fontWeight: 'bold',
-              fontSize: '18px',
-              boxShadow: '0 2px 8px rgba(120, 60, 160, 0.10)',
-              cursor: 'pointer',
-              transition: 'background 0.2s',
-            }}
-            title="Profile"
+
+        {/* Hamburger */}
+        <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          <div className={`bar ${menuOpen ? 'open' : ''}`}></div>
+          <div className={`bar ${menuOpen ? 'open' : ''}`}></div>
+          <div className={`bar ${menuOpen ? 'open' : ''}`}></div>
+        </div>
+
+        {/* Links */}
+        <ul className={`nav-links ${menuOpen ? 'active' : ''}`}>
+          <li
+            onMouseEnter={() => setResourcesOpen(true)}
+            onMouseLeave={() => setResourcesOpen(false)}
           >
-            <span role="img" aria-label="profile">
-              👤
-            </span>
-          </span>
-        </Link>
+            <span>Resources ▾</span>
+            {resourcesOpen && (
+              <ul className="dropdown">
+                <li><Link to="/resources/articles">Articles</Link></li>
+                <li><Link to="/resources/courses">Courses</Link></li>
+                <li><Link to="/resources/guides">Guides</Link></li>
+              </ul>
+            )}
+          </li>
+
+          <li
+            onMouseEnter={() => setCommunityOpen(true)}
+            onMouseLeave={() => setCommunityOpen(false)}
+          >
+            <span>Community ▾</span>
+            {communityOpen && (
+              <ul className="dropdown">
+                <li><Link to="/community/forum">Forum</Link></li>
+                <li><Link to="/community/mentorship">Mentorship</Link></li>
+                <li><Link to="/community/success">Success Stories</Link></li>
+              </ul>
+            )}
+          </li>
+
+          <li
+            onMouseEnter={() => setJobsOpen(true)}
+            onMouseLeave={() => setJobsOpen(false)}
+          >
+            <span>Jobs ▾</span>
+            {jobsOpen && (
+              <ul className="dropdown">
+                <li><Link to="/jobs/browse">Browse Jobs</Link></li>
+                <li><Link to="/jobs/post">Post Jobs</Link></li>
+              </ul>
+            )}
+          </li>
+
+          {/* Post a Job Button */}
+          <li>
+            <Link to="/jobs/post" className="post-job-btn">Post a Job</Link>
+          </li>
+
+          {/* Profile */}
+          <li className="profile-menu">
+            <span onClick={() => setProfileOpen(!profileOpen)}>👤 ▾</span>
+            {profileOpen && (
+              <ul className="dropdown profile-dropdown">
+                <li><Link to="/profile">Profile</Link></li>
+                <li><Link to="/settings">Settings</Link></li>
+                <li><Link to="/logout">Logout</Link></li>
+              </ul>
+            )}
+          </li>
+        </ul>
       </div>
     </nav>
   );
