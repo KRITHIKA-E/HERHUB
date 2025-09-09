@@ -1,73 +1,61 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [location, setLocation] = useState('');
-  const [education, setEducation] = useState('');
-  const [passion, setPassion] = useState('');
-  const [number, setNumber] = useState('');
 
-  const handleSignup = (e) => {
+  const [fields, setFields] = useState({
+    name: '',
+    age: '',
+    location: '',
+    education: '',
+    passion: '',
+    phone: '',
+    username: '',
+  });
+  const [message, setMessage] = useState('');
+
+  const handleChange = (e) => {
+    setFields({ ...fields, [e.target.name]: e.target.value });
+  };
+
+  const handleSendOtp = (e) => {
     e.preventDefault();
-    const userDetails = { name, age, location, education, passion, number };
-    localStorage.setItem('userDetails', JSON.stringify(userDetails));
-    navigate('/home');
+    if (!fields.phone) {
+      setMessage('Phone number is required');
+      return;
+    }
+    // Navigate to PhoneLogin page passing signup data
+    navigate('/PhoneLogin', { state: fields });
   };
 
   return (
-    <div className="auth-box">
-      <h1>Create Your Account</h1>
-      <form onSubmit={handleSignup}>
+    <div className="auth-box signup-box">
+      <h1>Sign Up</h1>
+      <form onSubmit={handleSendOtp}>
+        <input name="name" placeholder="Name" value={fields.name} onChange={handleChange} required />
+        <input name="age" placeholder="Age" type="number" value={fields.age} onChange={handleChange} required />
+        <input name="location" placeholder="Location" value={fields.location} onChange={handleChange} required />
+        <input name="education" placeholder="Education" value={fields.education} onChange={handleChange} required />
+        <input name="passion" placeholder="Passion" value={fields.passion} onChange={handleChange} required />
+
         <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          required
-        />
-        <input
-          type="number"
-          placeholder="Age"
-          value={age}
-          onChange={e => setAge(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={e => setLocation(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Educational Qualification"
-          value={education}
-          onChange={e => setEducation(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Passion"
-          value={passion}
-          onChange={e => setPassion(e.target.value)}
-          required
-        />
-        <input
+          name="phone"
           type="tel"
           placeholder="Phone Number"
-          value={number}
-          onChange={e => setNumber(e.target.value)}
+          value={fields.phone}
+          onChange={handleChange}
           required
         />
-        <button type="submit" className="button">Register</button>
+
+        <input name="username" placeholder="Username" value={fields.username} onChange={handleChange} required />
+        <input name="Password" placeholder="Password" value={fields.username} onChange={handleChange} required />
+
+        <button type="submit">Send OTP</button>
       </form>
-      <div className="register-link">
-        <p>Already have an account? <Link to="/login">Log in</Link></p>
-      </div>
+
+      {message && <p>{message}</p>}
+      <p>Already have an account? <Link to="/login">Log in</Link></p>
     </div>
   );
 };
