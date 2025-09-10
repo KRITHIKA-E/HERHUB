@@ -214,7 +214,7 @@
     align-items: center;
     gap: 1.2rem;
   }
-  /* Home.css */
+}
 .home-bg {
   font-family: 'Poppins', sans-serif;
   padding-top: 80px; /* space for navbar */
@@ -260,7 +260,7 @@
 }
 
 .home-hero-image img {
-  width: 400px;
+  width: 200px;
   max-width: 100%;
   border-radius: 12px;
 }
@@ -313,4 +313,3 @@
   margin: 4vh auto 2vh auto;
 }
 
-}

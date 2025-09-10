@@ -20,7 +20,7 @@ const Home = () => {
           <button className="cta-btn" onClick={() => navigate('/signup')}>Get Started</button>
         </div>
         <div className="home-hero-image">
-          <img src="/images/home-banner.jpg" alt="HER HUB Banner" />
+          <img src="/images/logo.jpg" alt="HER HUB Banner" />
         </div>
       </section>
 
