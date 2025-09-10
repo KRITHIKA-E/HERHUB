@@ -1,37 +1,20 @@
-const db = require('../database');
-const bcrypt = require('bcryptjs');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../database');
 
-const saltRounds = 10;
 
-const createUser = (user, callback) => {
-  bcrypt.hash(user.password, saltRounds, (err, hashedPassword) => {
-    if (err) return callback(err);
+const User = sequelize.define('User', {
+id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+name: { type: DataTypes.STRING, allowNull: false },
+email: { type: DataTypes.STRING, unique: true, allowNull: false },
+passwordHash: { type: DataTypes.STRING, allowNull: false },
+role: { type: DataTypes.ENUM('homemaker','professional','admin'), defaultValue: 'homemaker' },
+passion: { type: DataTypes.STRING },
+skills: { type: DataTypes.TEXT },
+age: { type: DataTypes.INTEGER },
+location: { type: DataTypes.STRING },
+availability: { type: DataTypes.STRING },
+verified: { type: DataTypes.BOOLEAN, defaultValue: false },
+});
 
-    const sql = `
-      INSERT INTO users (name, age, location, education, passion, number, username, password)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-    const params = [
-      user.name,
-      user.age,
-      user.location,
-      user.education,
-      user.passion,
-      user.number,
-      user.username,
-      hashedPassword,
-    ];
-    db.run(sql, params, function(err) {
-      callback(err, this.lastID);
-    });
-  });
-};
 
-const findUserByUsername = (username, callback) => {
-  const sql = `SELECT * FROM users WHERE username = ?`;
-  db.get(sql, [username], (err, row) => {
-    callback(err, row);
-  });
-};
-
-module.exports = { createUser, findUserByUsername };
+module.exports = User;

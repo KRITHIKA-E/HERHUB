@@ -1,29 +1,25 @@
-// App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import NavBar from "./components/NavBar";
 import Entrance from "./pages/Entrance";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Home from "./pages/Home";
-import PhoneLogin from "./pages/PhoneLogin";
+import NavBar from "./components/NavBar";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // required for dropdowns & toggler
 
-import "./index.css";  // only here
-
-function App() {
+const App = () => {
   return (
     <Router>
-      <NavBar />
+      <NavBar />  {/* optional, show in all pages */}
       <Routes>
         <Route path="/" element={<Entrance />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/phonelogin" element={<PhoneLogin />} />
-        <Route path="/home" element={<Home />} />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;

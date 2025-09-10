@@ -313,3 +313,31 @@
   margin: 4vh auto 2vh auto;
 }
 
+.auth-bg {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(120deg, #f7f0fa 60%, #e3e0f7 100%);
+}
+
+.card input:focus {
+  border-color: #a45fc1;
+  box-shadow: 0 0 0 0.2rem rgba(164, 95, 193, 0.25);
+}
+
+.card .btn:hover {
+  transform: scale(1.03);
+  transition: 0.2s;
+}
+.entrance-input {
+  padding: 0.8rem 1rem;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.entrance-input:focus {
+  border-color: #a45fc1;
+  box-shadow: 0 6px 14px rgba(164, 95, 193, 0.3);
+}

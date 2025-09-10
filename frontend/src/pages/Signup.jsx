@@ -1,61 +1,111 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../index.css"; // your theme CSS
 
 const Signup = () => {
   const navigate = useNavigate();
-
-  const [fields, setFields] = useState({
-    name: '',
-    age: '',
-    location: '',
-    education: '',
-    passion: '',
-    phone: '',
-    username: '',
+  const [formData, setFormData] = useState({
+    name: "",
+    age: "",
+    passion: "",
+    education: "",
+    password: "",
   });
-  const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
-    setFields({ ...fields, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSendOtp = (e) => {
-    e.preventDefault();
-    if (!fields.phone) {
-      setMessage('Phone number is required');
-      return;
-    }
-    // Navigate to PhoneLogin page passing signup data
-    navigate('/PhoneLogin', { state: fields });
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    await axios.post("http://localhost:5000/api/signup", formData);
+    alert("Signup successful!");
+    navigate("/login");
+  } catch (err) {
+    console.error(err);
+    alert(err.response?.data?.message || "Signup failed!");
+  }
+};
+
 
   return (
-    <div className="auth-box signup-box">
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSendOtp}>
-        <input name="name" placeholder="Name" value={fields.name} onChange={handleChange} required />
-        <input name="age" placeholder="Age" type="number" value={fields.age} onChange={handleChange} required />
-        <input name="location" placeholder="Location" value={fields.location} onChange={handleChange} required />
-        <input name="education" placeholder="Education" value={fields.education} onChange={handleChange} required />
-        <input name="passion" placeholder="Passion" value={fields.passion} onChange={handleChange} required />
+    <div className="entrance-bg">
+      <section className="hero-section fade-in" style={{ flexDirection: "column", gap: "2rem" }}>
+        <h1 className="hero-title">Create Your HER HUB Account</h1>
 
-        <input
-          name="phone"
-          type="tel"
-          placeholder="Phone Number"
-          value={fields.phone}
-          onChange={handleChange}
-          required
-        />
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            maxWidth: "400px",
+            width: "90%",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.5rem",
+          }}
+        >
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="entrance-input"
+          />
+          <input
+            type="number"
+            name="age"
+            placeholder="Age"
+            value={formData.age}
+            onChange={handleChange}
+            required
+            className="entrance-input"
+          />
+          <input
+            type="text"
+            name="passion"
+            placeholder="Passion (e.g., Cooking, Crafting)"
+            value={formData.passion}
+            onChange={handleChange}
+            required
+            className="entrance-input"
+          />
+          <input
+            type="text"
+            name="education"
+            placeholder="Education"
+            value={formData.education}
+            onChange={handleChange}
+            required
+            className="entrance-input"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Create Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            className="entrance-input"
+          />
 
-        <input name="username" placeholder="Username" value={fields.username} onChange={handleChange} required />
-        <input name="Password" placeholder="Password" value={fields.username} onChange={handleChange} required />
+          <button type="submit" className="enter-btn ripple">
+            Sign Up
+          </button>
+        </form>
 
-        <button type="submit">Send OTP</button>
-      </form>
-
-      {message && <p>{message}</p>}
-      <p>Already have an account? <Link to="/login">Log in</Link></p>
+        <p style={{ marginTop: "1rem", color: "#444" }}>
+          Already have an account?{" "}
+          <span
+            style={{ color: "#a45fc1", cursor: "pointer" }}
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </span>
+        </p>
+      </section>
     </div>
   );
 };

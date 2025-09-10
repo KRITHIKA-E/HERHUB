@@ -1,32 +1,14 @@
-const sqlite3 = require('sqlite3').verbose();
-const DBSOURCE = './database.sqlite';
+const sqlite3 = require("sqlite3").verbose();
+const db = new sqlite3.Database("./herhub.db");
 
-const db = new sqlite3.Database(DBSOURCE, (err) => {
-  if (err) {
-    console.error('Error opening database', err.message);
-  } else {
-    console.log('Connected to SQLite database.');
-    db.run(
-      `CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        age INTEGER,
-        location TEXT,
-        education TEXT,
-        passion TEXT,
-        number TEXT,
-        username TEXT UNIQUE,
-        password TEXT
-      )`,
-      (err) => {
-        if (err) {
-          console.error('Error creating users table', err.message);
-        } else {
-          console.log('Users table exists or created successfully.');
-        }
-      }
-    );
-  }
+// Create Users table if not exists
+db.serialize(() => {
+  db.run(`CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    email TEXT UNIQUE,
+    password TEXT
+  )`);
 });
 
 module.exports = db;
