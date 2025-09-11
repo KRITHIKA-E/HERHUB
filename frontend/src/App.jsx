@@ -7,6 +7,10 @@ import Signup from "./pages/Signup";
 import NavBar from "./components/NavBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // required for dropdowns & toggler
+import Profile from "./pages/Profile";
+
+// inside <Routes>
+<Route path="/profile/:id" element={<Profile />} />
 
 const App = () => {
   return (

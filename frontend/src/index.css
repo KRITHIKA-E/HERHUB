@@ -341,3 +341,44 @@
   border-color: #a45fc1;
   box-shadow: 0 6px 14px rgba(164, 95, 193, 0.3);
 }
+/* Profile Page */
+.profile-container {
+  margin: 80px auto;
+  max-width: 500px;
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+.profile-title {
+  color: #5a2d82;
+  margin-bottom: 20px;
+}
+
+.profile-card {
+  background: linear-gradient(135deg, #f9f0ff, #fce4ec);
+  border: 1px solid #e0c3fc;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+.profile-card p {
+  font-size: 1rem;
+  margin: 10px 0;
+  color: #5a2d82;
+}
+
+.loading-text {
+  margin-top: 100px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #8b1e8b;
+}
+.error-text {
+  margin-top: 100px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #e74c3c;
+}
