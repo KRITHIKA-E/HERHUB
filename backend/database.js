@@ -1,14 +1,10 @@
-const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("./herhub.db");
+import { Sequelize } from "sequelize";
 
-// Create Users table if not exists
-db.serialize(() => {
-  db.run(`CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT UNIQUE,
-    password TEXT
-  )`);
+// Using SQLite (file-based DB)
+const sequelize = new Sequelize({
+  dialect: "sqlite",
+  storage: "./database.sqlite", // DB file will be created here
+  logging: false,
 });
 
-module.exports = db;
+export default sequelize;

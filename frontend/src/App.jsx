@@ -6,21 +6,25 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NavBar from "./components/NavBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // required for dropdowns & toggler
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Profile from "./pages/Profile";
+import Dashboard from "./pages/Dashboard"; // new
+import Passions from "./pages/Passions"; // adjust path if needed
 
-// inside <Routes>
-<Route path="/profile/:id" element={<Profile />} />
 
 const App = () => {
   return (
     <Router>
-      <NavBar />  {/* optional, show in all pages */}
+      <NavBar />
       <Routes>
         <Route path="/" element={<Entrance />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} /> {/* ✅ added */}
+        <Route path="/profile/:name" element={<Profile />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/passions" element={<Passions />} /> {/* ✅ added */}
       </Routes>
     </Router>
   );

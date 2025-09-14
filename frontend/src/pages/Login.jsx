@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../index.css"; // make sure theme CSS is imported
+import "../index.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,22 +9,29 @@ const Login = () => {
     name: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError(""); // clear error on typing
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    await axios.post("http://localhost:5000/api/login", formData);
-    alert("Login successful!");
-    navigate("/home"); // redirect to your Home page
-  } catch (err) {
-    console.error(err);
-    alert(err.response?.data?.message || "Login failed!");
-  }
-};
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/login", formData);
+
+      // store user info & token
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("isLoggedIn", "true");
+
+      navigate("/dashboard"); // redirect
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || "Login failed!");
+    }
+  };
 
   return (
     <div className="entrance-bg">
@@ -33,13 +40,7 @@ const Login = () => {
 
         <form
           onSubmit={handleSubmit}
-          style={{
-            maxWidth: "400px",
-            width: "90%",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.5rem",
-          }}
+          style={{ maxWidth: "400px", width: "90%", display: "flex", flexDirection: "column", gap: "1.5rem" }}
         >
           <input
             type="text"
@@ -65,12 +66,11 @@ const Login = () => {
           </button>
         </form>
 
+        {error && <p className="error-text">{error}</p>}
+
         <p style={{ marginTop: "1rem", color: "#444" }}>
           Don't have an account?{" "}
-          <span
-            style={{ color: "#a45fc1", cursor: "pointer" }}
-            onClick={() => navigate("/signup")}
-          >
+          <span style={{ color: "#a45fc1", cursor: "pointer" }} onClick={() => navigate("/signup")}>
             Sign Up
           </span>
         </p>

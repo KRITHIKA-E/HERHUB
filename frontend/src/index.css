@@ -382,3 +382,228 @@
   font-size: 1.2rem;
   color: #e74c3c;
 }
+/* Signup / Login messages */
+.error-text {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1rem;
+  color: #e74c3c; /* red for errors */
+}
+
+.success-text {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1rem;
+  color: #8b1e8b; /* theme purple for success */
+}
+.home-quick-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.quick-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.quick-card:hover {
+  transform: translateY(-5px);
+}
+
+.quick-link-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: #a45fc1;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.quick-link-btn:hover {
+  background: #8d4cae;
+}
+/* --- Passions page (HER HUB theme) --- */
+.passion-page {
+  position: relative;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(120deg, #f7f0fa 40%, #fff 100%);
+  padding: 80px 20px 40px; /* leaves space for navbar */
+  overflow: hidden;
+}
+
+/* background image overlay (place file at public/images/passion-bg.png) */
+.passion-bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/passion-bg.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* page container */
+.passion-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* hero */
+.passion-hero {
+  text-align: center;
+  margin-bottom: 1.8rem;
+}
+.passion-hero .hero-title {
+  font-size: 2rem;
+  color: #8b1e8b;
+  margin-bottom: 0.5rem;
+}
+.passion-hero .hero-subtitle {
+  color: #555;
+}
+
+/* glass explore card */
+.passion-explore-card {
+  margin: 0 auto;
+  background: rgba(255,255,255,0.9);
+  border-radius: 16px;
+  padding: 1.6rem;
+  box-shadow: 0 8px 30px rgba(120,60,160,0.08);
+  max-width: 820px;
+}
+
+/* input + CTA row */
+.explore-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.explore-input {
+  flex: 1 1 320px;
+  max-width: 520px;
+  padding: 0.9rem 1rem;
+  border-radius: 30px;
+  border: 1px solid #e3d8ee;
+  box-shadow: 0 6px 14px rgba(164,95,193,0.06);
+}
+.explore-btn {
+  padding: 0.85rem 1.4rem;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #a45fc1, #7c3fa0);
+  color: white;
+  border: none;
+  font-weight: 600;
+}
+
+/* category pills row */
+/* category pills row */
+.category-row {
+  margin-top: 1rem;
+  display: flex;
+  gap: .8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.category-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #ffffff, #f8f3fb);
+  border-radius: 999px;
+  padding: 6px 14px;
+  border: 1px solid #e8dff5;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(120,60,160,0.08);
+  transition: all 0.25s ease;
+  font-weight: 500;
+  color: #5a2d82;
+}
+
+.category-pill:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #faf0ff, #f5e8fa);
+  box-shadow: 0 6px 14px rgba(120,60,160,0.12);
+}
+
+.category-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid #e2c9f0;
+}
+
+
+/* results section */
+.passion-results {
+  margin-top: 2rem;
+}
+
+.section-title {
+  color: #8b1e8b;
+  margin: 1.2rem 0;
+  text-align: left;
+}
+
+/* careers grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.result-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(120,60,160,0.06);
+  text-align: left;
+}
+.result-card h3 { margin: 0 0 0.5rem 0; color: #5a2d82; }
+.card-actions { margin-top: 0.8rem; display:flex; gap:0.6rem; }
+
+/* video grid */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+.video-card {
+  display: block;
+  background: #fff;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 6px 18px rgba(120,60,160,0.06);
+}
+.video-card img { width: 100%; height: 140px; object-fit: cover; display:block; }
+.video-card p { padding: 0.6rem; font-size: 0.95rem; color: #333; }
+
+/* small helpers */
+.loading-text { text-align:center; color:#8b1e8b; margin-top: 1rem; }
+.error-text { text-align:center; color:#e74c3c; margin-top: 0.6rem; }
+
+/* responsiveness */
+@media(max-width:700px) {
+  .explore-row { flex-direction: column; }
+  .explore-btn { width: 100%; }
+  .category-thumb { width: 28px; height: 28px; }
+}

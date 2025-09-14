@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../index.css"; // your theme CSS
+import "../index.css";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -12,23 +12,24 @@ const Signup = () => {
     education: "",
     password: "",
   });
+  const [message, setMessage] = useState({ type: "", text: "" });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setMessage({ type: "", text: "" });
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    await axios.post("http://localhost:5000/api/signup", formData);
-    alert("Signup successful!");
-    navigate("/login");
-  } catch (err) {
-    console.error(err);
-    alert(err.response?.data?.message || "Signup failed!");
-  }
-};
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/signup", formData);
 
+      setMessage({ type: "success", text: res.data.message });
+      setTimeout(() => navigate("/login"), 2000); // redirect after 2s
+    } catch (err) {
+      setMessage({ type: "error", text: err.response?.data?.message || "Signup failed!" });
+    }
+  };
 
   return (
     <div className="entrance-bg">
@@ -37,13 +38,7 @@ const Signup = () => {
 
         <form
           onSubmit={handleSubmit}
-          style={{
-            maxWidth: "400px",
-            width: "90%",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.5rem",
-          }}
+          style={{ maxWidth: "400px", width: "90%", display: "flex", flexDirection: "column", gap: "1.5rem" }}
         >
           <input
             type="text"
@@ -94,14 +89,17 @@ const Signup = () => {
           <button type="submit" className="enter-btn ripple">
             Sign Up
           </button>
+
+          {message.text && (
+            <p className={message.type === "error" ? "error-text" : "success-text"}>
+              {message.text}
+            </p>
+          )}
         </form>
 
         <p style={{ marginTop: "1rem", color: "#444" }}>
           Already have an account?{" "}
-          <span
-            style={{ color: "#a45fc1", cursor: "pointer" }}
-            onClick={() => navigate("/login")}
-          >
+          <span style={{ color: "#a45fc1", cursor: "pointer" }} onClick={() => navigate("/login")}>
             Login
           </span>
         </p>
