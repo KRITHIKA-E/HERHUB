@@ -18,7 +18,7 @@ const Passions = () => {
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState("");
 
-  const API_KEY = "AIzaSyBaYEJY2dxPyuhsbyAAe9a8sgLo8OoM58A"; // Replace with your key
+  const API_KEY = ""; // Replace with your key
 
   const handleExplore = async (passionQuery) => {
     const query = `${(passionQuery || "").trim()} tutorial`; // append 'tutorial' for better results

@@ -12,7 +12,7 @@ const passionToCareer = {
 };
 
 // YouTube API function
-const YOUTUBE_API_KEY = "YOUR_YOUTUBE_API_KEY";
+const YOUTUBE_API_KEY = "";
 
 router.post("/explore", async (req, res) => {
   const { passion } = req.body;

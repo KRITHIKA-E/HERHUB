@@ -607,3 +607,8 @@
   .explore-btn { width: 100%; }
   .category-thumb { width: 28px; height: 28px; }
 }
+.verified-badge {
+  color: #1da1f2;
+  font-size: 1.2rem;
+  margin-left: 6px;
+}

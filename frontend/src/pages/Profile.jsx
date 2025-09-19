@@ -1,26 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import "../index.css";
 
 const Profile = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/auth/profile/${id}`)
-      .then(res => setUser(res.data))
-      .catch(err => console.error(err));
+    fetch(`/api/profile/${id}`)
+      .then((res) => res.json())
+      .then((data) => setUser(data));
   }, [id]);
 
-  if (!user) return <p className="loading-text">Loading profile...</p>;
+  if (!user) return <p>Loading profile...</p>;
 
   return (
-    <div className="profile-container">
-      <h2 className="profile-title">👩‍🦱 {user.name}'s Profile</h2>
-      <div className="profile-card">
-        <p><strong>Age:</strong> {user.age}</p>
+    <div className="profile-page">
+      <div className="profile-card glass-card">
+        <h1>
+          {user.name}{" "}
+          {user.isVerified && <span className="verified-badge">✔️</span>}
+        </h1>
         <p><strong>Passion:</strong> {user.passion}</p>
-        <p><strong>Education:</strong> {user.education}</p>
+        <p><strong>Skills:</strong> {user.skills || "Not updated yet"}</p>
+        <p><strong>Bio:</strong> {user.bio || "No bio yet"}</p>
       </div>
     </div>
   );

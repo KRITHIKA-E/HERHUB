@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import sequelize from "./database.js";
 import authRoutes from "./routes/auth.js"; // make sure auth.js is in routes folder
-import passionsRoutes from "./routes/passions.js";
+import passionsRoutes from "./routes/Passion.js";
+
 
 
 const app = express();

@@ -25,6 +25,7 @@ const App = () => {
         <Route path="/profile/:name" element={<Profile />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/passions" element={<Passions />} /> {/* ✅ added */}
+        <Route path="/profile/:id" element={<Profile />} />
       </Routes>
     </Router>
   );
