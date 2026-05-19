@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../index.css";
+import api from "../../api/client";
+import "../../index.css";
 
 const categories = [
   { name: "Art & Craft", img: "public/images/Art.jpg" },
@@ -18,70 +19,37 @@ const Passions = () => {
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState("");
 
-  const API_KEY = ""; // Replace with your key
-
   const handleExplore = async (passionQuery) => {
-    const query = `${(passionQuery || "").trim()} tutorial`; // append 'tutorial' for better results
-    if (!query.trim()) {
+    const query = (passionQuery || "").trim();
+    if (!query) {
       setError("Please enter or select a passion to explore.");
       return;
     }
+
     setError("");
     setLoading(true);
     setCareers([]);
     setVideos([]);
 
-    const fallbackVideos = [
-      {
-        title: `Beginner ${(passionQuery || "").trim()} Tutorial`,
-        thumbnail:
-          "https://images.unsplash.com/photo-1515879218367-8466d910aaa7?q=80&w=400&auto=format&fit=crop",
-        link: "#",
-      },
-      {
-        title: `${(passionQuery || "").trim()} Tips & Tricks`,
-        thumbnail:
-          "https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=400&auto=format&fit=crop",
-        link: "#",
-      },
-    ];
-
     try {
-      const youtubeRes = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
-          query
-        )}&type=video&maxResults=6&key=${API_KEY}`
-      );
-      const youtubeData = await youtubeRes.json();
-      console.log("YouTube API response:", youtubeData);
+      const res = await api.post("/passions/explore", {
+        passion: query,
+        skills: user?.skills || "",
+        education: user?.education || "",
+      });
+      const fetchedCareers = res.data.careers || [];
+      const fetchedVideos = (res.data.videos || []).map((video) => ({
+        title: video.title,
+        thumbnail: video.thumbnail,
+        link: video.link || (video.videoId ? `https://www.youtube.com/watch?v=${video.videoId}` : "#"),
+      }));
 
-      const dynamicVideos =
-        (youtubeData.items || [])
-          .filter((item) => item.id.videoId)
-          .map((item) => ({
-            title: item.snippet.title,
-            thumbnail: item.snippet.thumbnails.medium.url,
-            link: `https://www.youtube.com/watch?v=${item.id.videoId}`,
-          })) || [];
-
-      setVideos(dynamicVideos.length ? dynamicVideos : fallbackVideos);
-
-      const mockCareers = [
-        `${(passionQuery || "").trim()} Coach`,
-        `${(passionQuery || "").trim()} Content Creator`,
-        `${(passionQuery || "").trim()} Freelancer`,
-      ];
-      setCareers(mockCareers);
+      console.log("[Passions.jsx] API response careers:", fetchedCareers);
+      setCareers(fetchedCareers);
+      setVideos(fetchedVideos);
     } catch (err) {
-      console.warn("YouTube API error:", err);
-      setVideos(fallbackVideos);
-
-      const mockCareers = [
-        `${(passionQuery || "").trim()} Coach`,
-        `${(passionQuery || "").trim()} Content Creator`,
-        `${(passionQuery || "").trim()} Freelancer`,
-      ];
-      setCareers(mockCareers);
+      console.warn("Passion explore error:", err);
+      setError(err.message || "Unable to fetch suggestions right now.");
     } finally {
       setLoading(false);
     }
@@ -134,8 +102,9 @@ const Passions = () => {
                 key={c.name}
                 className="category-pill"
                 onClick={() => {
-                  setInputValue(c.name.split(" ")[0]);
-                  handleExplore(c.name.split(" ")[0]);
+                  const category = c.name.split(" ")[0];
+                  setInputValue(category);
+                  handleExplore(category);
                 }}
               >
                 {c.img && <img src={c.img} alt={c.name} className="category-thumb" />}

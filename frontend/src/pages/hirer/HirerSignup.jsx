@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import "../index.css";
+import api from "../../api/client";
+import "../../index.css";
 
-const Signup = () => {
+const HirerSignup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
-    age: "",
-    passion: "",
-    education: "",
+    companyName: "",
+    email: "",
+    description: "",
     password: "",
   });
   const [message, setMessage] = useState({ type: "", text: "" });
@@ -21,20 +20,22 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post("http://localhost:5000/api/auth/signup", formData);
 
-      setMessage({ type: "success", text: res.data.message });
-      setTimeout(() => navigate("/login"), 2000); // redirect after 2s
+    try {
+      const res = await api.post("/hirer/signup", formData);
+      localStorage.setItem("hirerToken", res.data.token);
+      localStorage.setItem("hirer", JSON.stringify(res.data.hirer));
+      localStorage.setItem("hirerLoggedIn", "true");
+      navigate("/hirer/dashboard");
     } catch (err) {
-      setMessage({ type: "error", text: err.response?.data?.message || "Signup failed!" });
+      setMessage({ type: "error", text: err.message || "Signup failed!" });
     }
   };
 
   return (
     <div className="entrance-bg">
       <section className="hero-section fade-in" style={{ flexDirection: "column", gap: "2rem" }}>
-        <h1 className="hero-title">Create Your HER HUB Account</h1>
+        <h1 className="hero-title">Hirer Signup</h1>
 
         <form
           onSubmit={handleSubmit}
@@ -42,39 +43,29 @@ const Signup = () => {
         >
           <input
             type="text"
-            name="name"
-            placeholder="Full Name"
-            value={formData.name}
+            name="companyName"
+            placeholder="Company Name"
+            value={formData.companyName}
             onChange={handleChange}
             required
             className="entrance-input"
           />
           <input
-            type="number"
-            name="age"
-            placeholder="Age"
-            value={formData.age}
+            type="email"
+            name="email"
+            placeholder="Company Email"
+            value={formData.email}
             onChange={handleChange}
             required
             className="entrance-input"
           />
-          <input
-            type="text"
-            name="passion"
-            placeholder="Passion (e.g., Cooking, Crafting)"
-            value={formData.passion}
+          <textarea
+            name="description"
+            placeholder="Company Description"
+            value={formData.description}
             onChange={handleChange}
-            required
             className="entrance-input"
-          />
-          <input
-            type="text"
-            name="education"
-            placeholder="Education"
-            value={formData.education}
-            onChange={handleChange}
-            required
-            className="entrance-input"
+            rows={4}
           />
           <input
             type="password"
@@ -98,8 +89,8 @@ const Signup = () => {
         </form>
 
         <p style={{ marginTop: "1rem", color: "#444" }}>
-          Already have an account?{" "}
-          <span style={{ color: "#a45fc1", cursor: "pointer" }} onClick={() => navigate("/login")}>
+          Already have a hirer account?{" "}
+          <span style={{ color: "#a45fc1", cursor: "pointer" }} onClick={() => navigate("/hirer/login") }>
             Login
           </span>
         </p>
@@ -108,4 +99,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default HirerSignup;

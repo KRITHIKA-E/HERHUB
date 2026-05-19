@@ -1,52 +1,50 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import "../index.css";
+import api from "../../api/client";
+import "../../index.css";
 
-const Login = () => {
+const HirerLogin = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
+    email: "",
     password: "",
   });
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError(""); // clear error on typing
+    setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", formData);
-
-      // store user info & token
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      localStorage.setItem("isLoggedIn", "true");
-
-      navigate("/dashboard"); // redirect
+      const res = await api.post("/hirer/login", formData);
+      localStorage.setItem("hirerToken", res.data.token);
+      localStorage.setItem("hirer", JSON.stringify(res.data.hirer));
+      localStorage.setItem("hirerLoggedIn", "true");
+      navigate("/hirer/dashboard");
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || "Login failed!");
+      setError(err.message || "Login failed!");
     }
   };
 
   return (
     <div className="entrance-bg">
       <section className="hero-section fade-in" style={{ flexDirection: "column", gap: "2rem" }}>
-        <h1 className="hero-title">Welcome Back to HER HUB</h1>
+        <h1 className="hero-title">Hirer Login</h1>
 
         <form
           onSubmit={handleSubmit}
           style={{ maxWidth: "400px", width: "90%", display: "flex", flexDirection: "column", gap: "1.5rem" }}
         >
           <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            value={formData.name}
+            type="email"
+            name="email"
+            placeholder="Company Email"
+            value={formData.email}
             onChange={handleChange}
             required
             className="entrance-input"
@@ -69,8 +67,8 @@ const Login = () => {
         {error && <p className="error-text">{error}</p>}
 
         <p style={{ marginTop: "1rem", color: "#444" }}>
-          Don't have an account?{" "}
-          <span style={{ color: "#a45fc1", cursor: "pointer" }} onClick={() => navigate("/signup")}>
+          Don't have a hirer account?{" "}
+          <span style={{ color: "#a45fc1", cursor: "pointer" }} onClick={() => navigate("/hirer/signup") }>
             Sign Up
           </span>
         </p>
@@ -79,4 +77,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default HirerLogin;

@@ -46,6 +46,14 @@ const Entrance = () => {
           <button className="enter-btn ripple" onClick={() => navigate('/home')}>
             Enter HER HUB
           </button>
+          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "1rem" }}>
+            <button className="enter-btn ripple" onClick={() => navigate('/login')}>
+              Login as Homemaker
+            </button>
+            <button className="enter-btn ripple" onClick={() => navigate('/hirer/login')}>
+              Login as Hirer
+            </button>
+          </div>
         </div>
       </section>
 

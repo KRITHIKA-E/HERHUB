@@ -1,64 +1,39 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../database.js";
 
-const User = sequelize.define(
-
-  "User",
-
+const Hirer = sequelize.define(
+  "Hirer",
   {
-
-    name: {
+    companyName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
-
     password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-
-    city: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-
-    interest: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-
-    language: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-
-    bio: {
+    description: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
-
-    skills: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-
     isVerified: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
       defaultValue: false,
     },
-
   },
-
   {
-    timestamps: true,
-    tableName: "users",
+    timestamps: false,
+    tableName: "hirers",
   }
 );
 
-export default User;
+export default Hirer;
