@@ -1,5 +1,6 @@
 import express from "express";
-
+import User
+from "../models/userModel.js";
 import Job from "../models/jobModel.js";
 import Hirer from "../models/hirerModel.js";
 import Application
@@ -9,7 +10,13 @@ const router = express.Router();
 console.log(
   "[jobs.js] Jobs route module loaded"
 );
+Application.belongsTo(User, {
+  foreignKey: "userId",
+});
 
+Application.belongsTo(Job, {
+  foreignKey: "jobId",
+});
 
 // RELATIONSHIPS
 
@@ -253,6 +260,64 @@ router.post(
 
         message:
           "Application failed",
+
+      });
+    }
+  }
+);
+// GET APPLICATIONS
+
+router.get(
+
+  "/applications",
+
+  async (req, res) => {
+
+    try {
+
+      const applications =
+        await Application.findAll({
+
+          include: [
+
+            {
+              model: User,
+
+              attributes: [
+                "name",
+                "email",
+              ],
+            },
+
+            {
+              model: Job,
+
+              attributes: [
+                "title",
+              ],
+            },
+
+          ],
+
+          order: [
+            ["id", "DESC"],
+          ],
+
+        });
+
+      res.json(applications);
+
+    } catch (error) {
+
+      console.error(
+        "APPLICATION FETCH ERROR:",
+        error
+      );
+
+      res.status(500).json({
+
+        message:
+          "Failed to fetch applications",
 
       });
     }

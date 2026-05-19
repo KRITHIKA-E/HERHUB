@@ -2501,3 +2501,165 @@
 .dashboard-btn:hover {
   transform: scale(1.05);
 }
+.certificate-card {
+
+  background: #fff;
+
+  border-radius: 20px;
+
+  padding: 2rem;
+
+  text-align: center;
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+
+  border: 3px solid #f8c8dc;
+
+}
+
+.certificate-top {
+
+  font-size: 1.5rem;
+
+  font-weight: bold;
+
+  color: #d63384;
+
+  margin-bottom: 1rem;
+
+}
+
+.certificate-card h2 {
+
+  color: #c2185b;
+
+  margin: 1rem 0;
+
+}
+
+.certificate-card h3 {
+
+  font-size: 2rem;
+
+  color: #6a1b9a;
+
+  margin: 1rem 0;
+
+}
+
+.certificate-card span {
+
+  display: block;
+
+  margin-top: 1rem;
+
+  color: gray;
+
+}
+
+.certificate-card button {
+
+  margin-top: 1.5rem;
+
+}
+.badge-card {
+
+  background: #fff0f6;
+
+  border-radius: 20px;
+
+  padding: 2rem;
+
+  text-align: center;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+  border: 2px solid #f8c8dc;
+
+}
+
+.badge-card h2 {
+
+  color: #c2185b;
+
+  margin-bottom: 1rem;
+
+}
+.community-create {
+
+  background: white;
+
+  padding: 1.5rem;
+
+  border-radius: 20px;
+
+  margin-bottom: 2rem;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+}
+
+.community-create textarea {
+
+  width: 100%;
+
+  min-height: 120px;
+
+  border-radius: 12px;
+
+  padding: 1rem;
+
+  border: 1px solid #ddd;
+
+  margin-bottom: 1rem;
+
+}
+
+.community-post {
+
+  background: white;
+
+  padding: 1.5rem;
+
+  border-radius: 20px;
+
+  margin-bottom: 1rem;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+}
+
+.community-post h3 {
+
+  color: #c2185b;
+
+  margin-bottom: 0.8rem;
+
+}
+.profile-section {
+
+  margin-top: 2rem;
+
+}
+
+.profile-section h2 {
+
+  color: #c2185b;
+
+  margin-bottom: 1rem;
+
+}
+
+.profile-achievement {
+
+  background: #fff0f6;
+
+  padding: 1rem;
+
+  border-radius: 12px;
+
+  margin-bottom: 0.8rem;
+
+  border-left: 5px solid #d63384;
+
+}

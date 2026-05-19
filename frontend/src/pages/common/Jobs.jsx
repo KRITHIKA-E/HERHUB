@@ -3,25 +3,40 @@ import React, {
   useState
 } from "react";
 
+import { useNavigate }
+from "react-router-dom";
+
 import api from "../../api/client";
 
 import "../../index.css";
 
 const Jobs = () => {
 
-  const [jobs, setJobs] = useState([]);
+  const navigate =
+    useNavigate();
 
+  const [jobs, setJobs] =
+    useState([]);
+
+  // ======================
   // FETCH JOBS
+  // ======================
 
   useEffect(() => {
 
-    const fetchJobs = async () => {
+    fetchJobs();
+
+  }, []);
+
+  const fetchJobs =
+    async () => {
 
       try {
 
-        const res = await api.get(
-          "/jobs"
-        );
+        const res =
+          await api.get(
+            "/jobs"
+          );
 
         setJobs(res.data);
 
@@ -34,56 +49,75 @@ const Jobs = () => {
       }
     };
 
-    fetchJobs();
+  // ======================
+  // APPLY JOB
+  // ======================
 
-  }, []);
-const handleApply =
-  async (jobId) => {
+  const handleApply =
+    async (jobId) => {
 
-    try {
+      try {
 
-      const user =
-        JSON.parse(
+        const token =
           localStorage.getItem(
-            "user"
-          )
-        );
+            "token"
+          );
 
-      if (!user) {
+        const user =
+          JSON.parse(
+            localStorage.getItem(
+              "user"
+            )
+          );
+
+        // LOGIN CHECK
+
+        if (!token || !user) {
+
+          alert(
+            "Please login first 🌸"
+          );
+
+          navigate("/login");
+
+          return;
+        }
+
+        // APPLY API
+
+        const res =
+          await api.post(
+
+            "/jobs/apply",
+
+            {
+
+              jobId,
+
+              userId:
+                user.id,
+
+            }
+          );
 
         alert(
-          "Please login first"
+          res.data.message
         );
 
-        return;
+      } catch (err) {
+
+        console.error(err);
+
+        alert(
+
+          err.message ||
+
+          "Application failed"
+
+        );
       }
+    };
 
-      await api.post(
-
-        "/jobs/apply",
-
-        {
-
-          jobId,
-
-          userId: user.id,
-
-        }
-      );
-
-      alert(
-        "Application submitted 🌸"
-      );
-
-    } catch (err) {
-
-      console.error(err);
-
-      alert(
-        "Already applied or failed"
-      );
-    }
-  };
   return (
 
     <div className="jobs-page">
@@ -124,13 +158,28 @@ const handleApply =
                 📍 {job.location}
               </span>
 
+              <p
+                style={{
+                  marginTop: "10px",
+                  fontWeight: "600",
+                }}
+              >
+                🏢 {
+                  job.companyName
+                }
+              </p>
+
               <button
-  onClick={() =>
-    handleApply(job.id)
-  }
->
-  Apply Now
-</button>
+
+                onClick={() =>
+                  handleApply(
+                    job.id
+                  )
+                }
+
+              >
+                Apply Now
+              </button>
 
             </div>
           ))

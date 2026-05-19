@@ -1,39 +1,117 @@
 import dotenv from "dotenv";
+
 import express from "express";
+
 import cors from "cors";
-import sequelize from "./database.js";
-import authRoutes from "./routes/auth.js";
-import hirerRoutes from "./routes/hirer.js";
-import jobsRoutes from "./routes/jobs.js";
-import passionsRoutes from "./routes/Passion.js";
-import profileRoutes from "./routes/Profile.js";
+
+import sequelize
+from "./database.js";
+
+import authRoutes
+from "./routes/auth.js";
+
+import hirerRoutes
+from "./routes/hirer.js";
+
+import jobsRoutes
+from "./routes/jobs.js";
+
+import passionsRoutes
+from "./routes/Passion.js";
+
+import profileRoutes
+from "./routes/Profile.js";
+
+import courseRoutes
+from "./routes/courseRoutes.js";
+
+import enrollmentRoutes
+from "./routes/enrollmentRoutes.js";
+
+import analyticsRoutes
+from "./routes/analyticsRoutes.js";
 
 dotenv.config();
 
-const app = express();
+const app =
+  express();
 
-// Middleware
+
+// MIDDLEWARE
+
 app.use(cors());
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/passions", passionsRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/hirer", hirerRoutes);
-app.use("/api/jobs", jobsRoutes);
-console.log("[server.js] Mounted job routes at /api/jobs");
-app.use("/api/profile", profileRoutes);
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
-// Test route
-app.get("/", (req, res) => {
-  res.send("Backend running...");
-});
 
-// DB sync
-// DB sync
+// ROUTES
 
-sequelize
-  .sync()
+app.use(
+  "/api/passions",
+  passionsRoutes
+);
+
+app.use(
+  "/api/auth",
+  authRoutes
+);
+
+app.use(
+  "/api/hirer",
+  hirerRoutes
+);
+
+app.use(
+  "/api/jobs",
+  jobsRoutes
+);
+
+app.use(
+  "/api/profile",
+  profileRoutes
+);
+
+app.use(
+  "/api/courses",
+  courseRoutes
+);
+
+app.use(
+  "/api/enrollments",
+  enrollmentRoutes
+);
+app.use(
+  "/api/analytics",
+  analyticsRoutes
+);
+
+console.log(
+  "[server.js] Mounted routes successfully"
+);
+
+
+// TEST ROUTE
+
+app.get(
+  "/",
+  (req, res) => {
+
+    res.send(
+      "Backend running..."
+    );
+  }
+);
+
+
+// DATABASE SYNC
+
+sequelize.sync()
 
   .then(() => {
 
@@ -52,16 +130,49 @@ sequelize
 
   });
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ message: "Route not found" });
-});
 
-// Error handler
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: "Internal server error" });
-});
+// 404 HANDLER
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.use(
+  (req, res) => {
+
+    res.status(404).json({
+
+      message:
+        "Route not found",
+
+    });
+  }
+);
+
+
+// ERROR HANDLER
+
+app.use(
+  (err, req, res, next) => {
+
+    console.error(
+      err.stack
+    );
+
+    res.status(500).json({
+
+      message:
+        "Internal server error",
+
+    });
+  }
+);
+
+
+const PORT =
+  process.env.PORT || 5000;
+
+app.listen(
+  PORT,
+  () =>
+
+    console.log(
+      `🚀 Server running on port ${PORT}`
+    )
+);

@@ -234,15 +234,44 @@ const HirerDashboard = () => {
             applications.
           </p>
 
-          <button>
-            View Applications
-          </button>
+        <button
+  onClick={() =>
+    navigate(
+      "/hirer/applications"
+    )
+  }
+>
+  View Applications
+</button>
 
         </div>
 
       </div>
+      <div className="dashboard-card">
+
+  <h2>
+    🌸 Explore Talent
+  </h2>
+
+  <p>
+    Discover skilled homemakers,
+    certificates, and learning achievements.
+  </p>
+
+  <button
+    onClick={() =>
+      navigate(
+        "/hirer/homemaker-profiles"
+      )
+    }
+  >
+    View Profiles
+  </button>
+
+</div>
 
     </div>
+    
   );
 };
 

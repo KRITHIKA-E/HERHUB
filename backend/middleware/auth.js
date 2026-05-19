@@ -1,9 +1,15 @@
 import jwt from "jsonwebtoken";
 
+const jwtSecret =
+  process.env.JWT_SECRET ||
+  "default_jwt_secret";
+
 export const authenticateToken = (
+
   req,
   res,
   next
+
 ) => {
 
   try {
@@ -14,11 +20,14 @@ export const authenticateToken = (
     if (!authHeader) {
 
       return res.status(401).json({
-        message: "No token provided",
+
+        message:
+          "No token provided",
+
       });
     }
 
-    // Bearer token
+    // EXTRACT TOKEN
 
     const token =
       authHeader.split(" ")[1];
@@ -26,16 +35,20 @@ export const authenticateToken = (
     if (!token) {
 
       return res.status(401).json({
-        message: "Invalid token format",
+
+        message:
+          "Invalid token format",
+
       });
     }
 
     // VERIFY TOKEN
 
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET
-    );
+    const decoded =
+      jwt.verify(
+        token,
+        jwtSecret
+      );
 
     req.user = decoded;
 
@@ -43,10 +56,16 @@ export const authenticateToken = (
 
   } catch (err) {
 
-    console.error(err);
+    console.error(
+      "JWT ERROR:",
+      err
+    );
 
     return res.status(401).json({
-      message: "Unauthorized access",
+
+      message:
+        "Unauthorized access",
+
     });
   }
 };

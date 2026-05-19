@@ -1,97 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+
 import "../../index.css";
-import api from "../../api/client";
+
 const Profile = () => {
 
-  const [profile, setProfile] = useState({
-    name: "",
-    city: "",
-    interest: "",
-    language: "",
-  });
+  const user =
 
-  // LOAD USER DATA
-
-  useEffect(() => {
-
-  const fetchProfile = async () => {
-
-    try {
-
-      const storedUser = JSON.parse(
-        localStorage.getItem("user")
-      );
-
-      if (!storedUser?.id) {
-        return;
-      }
-
-      const res = await api.get(
-        `/profile/${storedUser.id}`
-      );
-
-      setProfile(res.data);
-
-    } catch (err) {
-
-      console.error(
-        "Profile fetch failed:",
-        err
-      );
-    }
-  };
-
-  fetchProfile();
-
-}, []);
-
-  // HANDLE INPUT CHANGE
-
-  const handleChange = (e) => {
-
-    setProfile({
-      ...profile,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  // SAVE PROFILE
-
-  const handleSave = async () => {
-
-  try {
-
-    const storedUser = JSON.parse(
-      localStorage.getItem("user")
+    JSON.parse(
+      localStorage.getItem(
+        "user"
+      )
     );
 
-    const res = await api.put(
-      `/profile/${storedUser.id}`,
-      profile
-    );
+  const certificates =
 
-    localStorage.setItem(
-      "user",
-      JSON.stringify(res.data)
-    );
+    JSON.parse(
+      localStorage.getItem(
+        "certificates"
+      )
+    ) || [];
 
-    alert(
-      "Profile Updated Successfully 🌸"
-    );
+  const enrolledCourses =
 
-  } catch (err) {
+    JSON.parse(
+      localStorage.getItem(
+        "enrolledCourses"
+      )
+    ) || [];
 
-    console.error(
-      "Profile update failed:",
-      err
-    );
+  if (!user) {
 
-    alert(
-      err.message ||
-      "Update failed"
+    return (
+
+      <p>
+        No profile found.
+      </p>
     );
   }
-};
 
   return (
 
@@ -99,86 +44,158 @@ const Profile = () => {
 
       <div className="profile-card">
 
-        <h1>Your Profile 🌸</h1>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "2rem",
+          }}
+        >
 
-        <p>
-          Update your details and personalize
-          your HER HUB experience.
-        </p>
-
-        <div className="profile-form">
-
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            value={profile.name}
-            onChange={handleChange}
-          />
-
-          <input
-            type="text"
-            name="city"
-            placeholder="City / Village"
-            value={profile.city}
-            onChange={handleChange}
-          />
-
-          <select
-            name="interest"
-            value={profile.interest}
-            onChange={handleChange}
+          <div
+            style={{
+              fontSize: "4rem",
+            }}
           >
+            👩
+          </div>
 
-            <option value="">
-              Select Interest
-            </option>
+          <h1>
+            {user.name} 🌸
+          </h1>
 
-            <option value="Tailoring">
-              Tailoring
-            </option>
+          <p>
+            📧 {user.email}
+          </p>
 
-            <option value="Baking">
-              Baking
-            </option>
+          <p>
+            📍 {user.city}
+          </p>
 
-            <option value="Beauty Care">
-              Beauty Care
-            </option>
+        </div>
 
-            <option value="Teaching">
-              Teaching
-            </option>
 
-          </select>
+        {/* BASIC DETAILS */}
 
-          <select
-            name="language"
-            value={profile.language}
-            onChange={handleChange}
-          >
+        <div className="profile-section">
 
-            <option value="">
-              Preferred Language
-            </option>
+          <h2>
+            Personal Details
+          </h2>
 
-            <option value="Tamil">
-              Tamil
-            </option>
+          <p>
+            💡 Interest:
+            {" "}
+            {user.interest}
+          </p>
 
-            <option value="Hindi">
-              Hindi
-            </option>
+          <p>
+            🗣 Language:
+            {" "}
+            {user.language}
+          </p>
 
-            <option value="English">
-              English
-            </option>
+          <p>
+            ✨ Skills:
+            {" "}
+            {
+              user.skills ||
+              "Not added"
+            }
+          </p>
 
-          </select>
+          <p>
+            📝 Bio:
+            {" "}
+            {
+              user.bio ||
+              "No bio added yet."
+            }
+          </p>
 
-          <button onClick={handleSave}>
-            Save Profile
-          </button>
+        </div>
+
+
+        {/* LEARNING STATS */}
+
+        <div className="profile-section">
+
+          <h2>
+            Learning Journey 📚
+          </h2>
+
+          <p>
+            Enrolled Courses:
+            {" "}
+            {
+              enrolledCourses.length
+            }
+          </p>
+
+          <p>
+            Certificates Earned:
+            {" "}
+            {
+              certificates.length
+            }
+          </p>
+
+        </div>
+
+
+        {/* CERTIFICATES */}
+
+        <div className="profile-section">
+
+          <h2>
+            Certificates 🏆
+          </h2>
+
+          {certificates.length === 0 ? (
+
+            <p>
+              No certificates yet.
+            </p>
+
+          ) : (
+
+            certificates.map(
+              (certificate) => (
+
+                <div
+                  key={certificate.id}
+                  className="profile-achievement"
+                >
+
+                  🌸 {
+                    certificate.courseName
+                  }
+
+                </div>
+              )
+            )
+          )}
+
+        </div>
+
+
+        {/* BADGES */}
+
+        <div className="profile-section">
+
+          <h2>
+            Achievement Badges 🏅
+          </h2>
+
+          <div className="profile-achievement">
+            🌸 Skill Starter
+          </div>
+
+          {certificates.length > 0 && (
+
+            <div className="profile-achievement">
+              🏆 Certified Learner
+            </div>
+          )}
 
         </div>
 
